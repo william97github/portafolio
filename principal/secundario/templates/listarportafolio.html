@@ -1,0 +1,52 @@
+{% extends './plantilla.html' %}
+
+{% block titulo %} Listar Portafolio {% endblock %}
+
+{% block contenido %}
+<section class="page-section">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-lg-8 col-xl-6 text-center">
+            <h2 class="mt-0">Lista de protafolio</h2>
+            <hr class="divider" />
+        </div>
+    </div>
+    <div id="portfolio">
+        <div class="container-fluid">
+
+            <div class="row g-3 mt-3 ">
+                {% for c in object_list %}
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{{ c.foto }}" title="{{ c.titulo }}">
+                        <img class="img-fluid" src="{{ c.foto }}" alt="{{ c.foto }}" />
+                        <div class="portfolio-box-caption">
+                            <div class="project-name fs-6">Titulo: {{ c.titulo }}</div>
+                            <div class="project-name fs-6">Descripción: {{ c.descripcion }}</div>
+                            <div class="project-name fs-6">Etiqueta: {{ c.etiqueta }}</div>
+                            <div class="project-name fs-6">Url: {{ c.url }}</div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a class="btn btn-dark" href="?page=1"> < </a>
+                            <a class="btn btn-dark" href="?page={{ page_obj.previous_page_number }}"> > </a>
+                        {% endif %}
+
+                        <span class="current">
+                            Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a class="btn btn-dark" href="?page={{ page_obj.next_page_number }}"> < </a>
+                            <a class="btn btn-dark" href="?page={{ page_obj.paginator.num_pages }}"> > </a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

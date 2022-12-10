@@ -1,0 +1,52 @@
+{% extends './plantilla.html' %}
+
+{% block titulo %} Bienvenido {% endblock %}
+
+{% block contenido %}
+<section class="page-section" id="services">
+            <div class="container">
+                <h2 class="text-center mt-0">Bienvenido {% if user.is_authenticated %}{{ user.username }}{% endif %}</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col text-center">
+                        <div class="mt-5">
+                            <a class="btn btn-primary" href="{% url 'crearportafolio' %}" role="button">Agregar</a>
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Foto</th>
+                                  <th scope="col">Titulo</th>
+                                  <th scope="col">Descripcion</th>
+                                  <th scope="col">Etiqueta</th>
+                                  <th scope="col">Url</th>
+                                  <th scope="col">Acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                {% for c in object_list %}
+               <tr>
+                                  <th scope="row">{{ c.pk }}</th>
+                                  <td><img src="{{ c.foto }}" width="100px" class="rounded float-start" alt="{{ c.foto }}"></td>
+                                  <td>{{ c.titulo }}</td>
+                                  <td>{{ c.descripcion }}</td>
+                   <td>{{ c.etiqueta }}</td>
+                   <td>{{ c.url }}</td>
+                   <td>
+                       <div class="btn-group">
+                          <a href="{% url 'actualizarportafolio' c.pk %}" class="btn btn-warning" >Modificar</a>
+                          <a href="{% url 'eliminarportafolio' c.pk %}" class="btn btn-danger">Eliminar</a>
+                        </div>
+                   </td>
+                                </tr>
+                {% endfor %}
+
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
